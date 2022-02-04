@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
 
-const Body = ({ isValidCheck }) => {
+const Body = ({ isValidCheck,  isValid  }) => {
   const [make, setMake] = useState("");
   const [year, setYear] = useState("");
+  const [showAddVal, setshowAddVal] = useState(false);
 
 
 const check = (e) => {
@@ -15,14 +16,17 @@ const check = (e) => {
 
 
   return (
+
     <div className="App">
+    {isValid ? <h2>Valid Vehicle</h2> : <h2>Invalid Vehicle</h2>}
+
       <label>Make:</label>
       <input type="text" name="make" value={make} onChange={(event) => setMake(event.target.value)} />
       <br />
       <label>Year:</label>
       <input type="text" name="year" value={year} onChange={(event) => setYear(event.target.value)} />
       <br />
-      <button onClick={() => check()}>Validate</button>
+      <button type="button" class="btn btn-dark" onClick={() => check()}>Validate</button>
     </div>
   );
 };
