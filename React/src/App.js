@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Header from "./component/Header.js";
 import Body from "./component/Body.js";
 import Validation from "./component/Validation.js";
+import Inventory from "./component/Inventory.js";
+import CarsInDB from "./component/CarsInDB.js"
 
 function App() {
   const [carsState, setCar] = useState(() => ({
@@ -9,6 +11,7 @@ function App() {
     year: "",
     isValid: undefined,
   }));
+  const [carsInDB, setCarsInDB] = useState(() =>CarsInDB )
 
   const isValidCheck = async (make, year) => {
     var check = await Validation({
@@ -25,9 +28,10 @@ function App() {
   };
 
   return (
-    <div>
+    <div class="text-center">
       <Header isValid={carsState.isValid} />
       <Body isValidCheck={isValidCheck} />
+      <Inventory carsInDB={carsInDB} />
     </div>
   );
 }

@@ -8,8 +8,6 @@ const Body = ({ isValidCheck }) => {
 
 const check = (e) => {
 
-    console.log(make);
-    console.log(year);
     isValidCheck(make, year)
     setMake("")
     setYear("")
@@ -30,16 +28,3 @@ const check = (e) => {
 };
 
 export default Body;
-
-//       <div className="App">
-//         {this.state.isValid ? <h2>Valid Vehicle</h2> : <h2>Invalid Vehicle</h2>}
-//         <label>Make:</label>
-//         <input type="text" name="make" onChange={(event) => this.setState({ ...this.state, make: event.target.value })} />
-//         <br />
-//         <label>Year:</label>
-//         <input type="text" name="year" onChange={(event) => this.setState({ ...this.state, year: event.target.value })} />
-//         <br />
-//         <button onClick={() => this.setState({ ...this.state, isValid: this.isValidCar({ make: this.state.make, year: this.state.year }) })}>Validate</button>
-//       </div>
-//     );
-//   }
