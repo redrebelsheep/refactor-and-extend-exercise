@@ -1,12 +1,12 @@
 import React from "react";
 import Car from "./Car";
+import { Table } from 'react-bootstrap';
 
-const TableComponent = ({sourceDb}) => {
+const InventoryCarTable = ({sourceDb}) => {
   console.log(sourceDb);
 
   return (
-    <div>
-      <table class="table">
+    <Table striped bordered hover>
         <thead class="thead-dark">
           <tr>
             <th scope="col">ID</th>
@@ -21,9 +21,8 @@ const TableComponent = ({sourceDb}) => {
             <Car car={car} />
           ))}
         </tbody>
-      </table>
-    </div>
-  );
+        </Table>
+   );
 };
 
-export default TableComponent;
+export default InventoryCarTable;

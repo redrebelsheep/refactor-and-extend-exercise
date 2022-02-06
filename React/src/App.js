@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ValidationCheck from "./component/ValidationCheck.js";
+import CarsInventoryDB from "./component/CarsInventoryDB.js";
+import Home from "./component/Home.js";
 import Header from "./component/Header.js";
-import Body from "./component/Body.js";
-import Validation from "./component/Validation.js";
-import TableComponent from "./component/TableComponent.js";
-import CarsInDB from "./component/CarsInDB.js";
-import SubmitLogDB from "./component/SubmitLogDB.js";
-import { Link } from "react-router-dom";
-
+import ValidationView from "./component/ValidationView.js"
+import InventoryCarTable from "./component/InventoryCarTable.js"
+import ValidationSettings from "./component/ValidationSettings.js"
+import ValidListDB from "./component/ValidListDB";
 
 function App() {
   const [carsState, setCar] = useState(() => ({
@@ -14,35 +15,48 @@ function App() {
     year: "",
     isValid: undefined,
   }));
-  const [carsInDB, setCarsInDB] = useState(() => CarsInDB);
-  const [submitLog, setSubmitLog] = useState(() => SubmitLogDB);
+  const [carsInDB, setCarsInDB] = useState(() => CarsInventoryDB);
+  const [validListDB, setValidListDB] = useState(() => ValidListDB);
 
 
   const isValidCheck = async (make, year) => {
-    var check = await Validation({
+    var check = await ValidationCheck({
       make: make,
       year: year,
       isValid: undefined,
-    });
+    }, validListDB);
     if (check) {
       await setCar((prevState) => ({
         ...prevState,
         isValid: true,
       }));
+    }else {
+      await setCar((prevState) => ({
+        ...prevState,
+        isValid: false,
+      }));
     }
   };
 
-  return (
-    <div>
-     <Link to="/component/Body">Body</Link>
-    
-     <TableComponent sourceDb={CarsInDB}/>
-     <TableComponent sourceDb={SubmitLogDB}/>
 
+  return (
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="validationView" element={<ValidationView isValidCheck={isValidCheck} isValid={carsState.isValid}/>} />
+        <Route path="inventoryCarTable" element={<InventoryCarTable sourceDb={carsInDB} />} />
+        <Route path="ValidationSettings" element={<ValidationSettings validListDB={ValidListDB}/>} />
+
+      </Routes>
+    </BrowserRouter>
+    </div>
     </div>
   );
 }
 
 export default App;
 
-//<Body isValidCheck={isValidCheck} isValid={carsState.isValid}>
+
