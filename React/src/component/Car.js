@@ -8,6 +8,7 @@ const Car = ({car}) => {
       <td>{car.model}</td>
       <td>{car.year}</td>
       <td>{car.color}</td>
+      <td>{car.value}</td>
     </tr>
   )
 };

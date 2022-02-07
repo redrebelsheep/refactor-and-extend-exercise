@@ -14,10 +14,11 @@ const InventoryCarTable = ({sourceDb}) => {
             <th scope="col">model</th>
             <th scope="col">year</th>
             <th scope="col">color</th>
+            <th scope="col">value</th>
           </tr>
         </thead>
         <tbody>
-          {sourceDb.map((car) => (
+        {sourceDb.map((car) => (
             <Car car={car} />
           ))}
         </tbody>

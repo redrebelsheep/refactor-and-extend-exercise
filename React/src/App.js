@@ -38,6 +38,13 @@ function App() {
     }
   };
 
+  const addToValidListDB = (make, yearBeginn, yearEnd) => {
+    let id = validListDB.length+1
+    let newItem = {id: id, make: make, yearBeginnLong: yearBeginn, yearEndLong: yearEnd}
+    
+    setValidListDB(validListDB.push(newItem))
+  } 
+
 
   return (
     <div class="row d-flex justify-content-center">
@@ -48,7 +55,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="validationView" element={<ValidationView isValidCheck={isValidCheck} isValid={carsState.isValid}/>} />
         <Route path="inventoryCarTable" element={<InventoryCarTable sourceDb={carsInDB} />} />
-        <Route path="ValidationSettings" element={<ValidationSettings validListDB={ValidListDB}/>} />
+        <Route path="ValidationSettings" element={<ValidationSettings validListDB={ValidListDB} addToValidListDB={addToValidListDB} />} />
 
       </Routes>
     </BrowserRouter>

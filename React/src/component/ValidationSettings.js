@@ -1,40 +1,51 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ValidListDB from "./ValidListDB";
 import ValidationItem from "./ValidationItem";
 
-const ValidationSettings = ({ validListDB }) => {
+const ValidationSettings = ({ validListDB, addToValidListDB }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [showSubmitView, setShowSubmitView] = useState(false);
-  const [name, setName] = useState("");
+  const [showValidView, setShowValidView] = useState(false);
+  const [validItem, setValidItem] = useState();
+  const [make, setMake] = useState("");
+
 
   const showSubmitList = () => {
-    setShowSubmitView(!showSubmitView);
+    setShowValidView(!showValidView);
   };
+  
+  const sumDataForAdd = (e) => {
+    e.preventDefault();
+    addToValidListDB(make, parseInt(startDate.getFullYear().toString()), parseInt(endDate.getFullYear().toString()))
+  }
+  
+  const sumDataForDelete =(e)=>{
+    e.preventDefault();
+  }
+
+
+  
+  
   const showValationList = () => (
-    <ul class="list-group">
-      {validListDB.map((item) => (
+    <div>
+    <select id="comboA" onChange={(event) => setValidItem(event.target.value)}>
+    {validListDB.map((item) => (
         <ValidationItem item={item} />
       ))}
-    </ul>
+    </select>
+    <button  class="btn btn-dark btn-sm" onClick={(e) => sumDataForDelete(e)}>
+        Delete 
+    </button>
+    </div>
   );
-  
-  const sumData = () => {
-    console.log(name);
-    console.log(startDate.getFullYear().toString());
-    console.log(endDate.getFullYear().toString());
-}
-
-
   return (
     <form class="form-inline">
       <div class="form-group mb-2">
         <label for="inputPassword2" class="sr-only">
-          Name
+         Make
         </label>
-        <input class="form-control" type="text" name="name" value={name}  onChange={(event) => setName(event.target.value)}/>
+        <input class="form-control" type="text" name="name" value={make}  onChange={(event) => setMake(event.target.value)}/>
       </div>
       <div class="form-group mb-2">
         <label for="staticEmail2" class="sr-only">
@@ -60,17 +71,17 @@ const ValidationSettings = ({ validListDB }) => {
           yearItemNumber={9}
         />
       </div>
-      <button tclass="btn btn-dark" class="btn btn-dark" onClick={sumData()}>
+      <button class="btn btn-dark" onClick={(e) => sumDataForAdd(e)}>
         Add Validation
       </button>
       <button
         type="button"
-        class={showSubmitView ? "btn btn-success" : "btn btn-danger"}
+        class={showValidView ? "btn btn-success" : "btn btn-danger"}
         onClick={() => showSubmitList()}
       >
-        {showSubmitView ? "+" : "-"}{" "}
+        {showValidView ? "+" : "-"}{" "}
       </button>
-      {showSubmitView ? showValationList() : ""}
+      {showValidView ? showValationList() : ""}
     </form>
   );
 };

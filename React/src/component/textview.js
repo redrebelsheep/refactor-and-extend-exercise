@@ -8,7 +8,7 @@
   <div class="form-group row">
     <label for="inputPassword3" class="col-sm-2 col-form-label">Year: </label>
     <div class="col-sm-10">
-      <input class="form-control" id="inputPassword3" placeholder="Password"/>
+      <input class="form-control" type="text" name="year" value={year} onChange={(event) => setYear(event.target.value)} />
     </div>
   </div>
   <div class="form-group row">
